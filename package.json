@@ -1,0 +1,54 @@
+{
+  "name": "jquery-slashes-and-circles",
+  "version": "0.0.1",
+  "description": "Animate random slashes and circles in a clipPath area of an SVG, avoiding certain areas.",
+  "keywords": [
+    "jquery-plugin",
+    "jquery",
+    "plugins"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j0rdsta/jquery-slashes-and-circles.git"
+  },
+  "bugs": {
+    "url": "https://github.com/j0rdsta/jquery-slashes-and-circles/issues"
+  },
+  "author": {
+    "name": "Jordan Gardiner",
+    "email": "hello@jordsta.com",
+    "url": "https://github.com/j0rdsta"
+  },
+  "homepage": "https://github.com/j0rdsta/jquery-slashes-and-circles",
+  "contributors": [
+    {
+      "name": "Jordan Gardiner",
+      "email": "hello@jordsta.com",
+      "url": "https://github.com/j0rdsta"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^1.18.2",
+    "jquery": ">= 1.5.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^0.12.0",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.12.0",
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-qunit": "^0.1.9",
+    "phantomjs": "^1.9.18",
+    "qunitjs": "^1.19.0"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  }
+}
