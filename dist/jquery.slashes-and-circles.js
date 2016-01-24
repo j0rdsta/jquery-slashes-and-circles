@@ -1,5 +1,5 @@
 /*
- *  jquery-slashes-and-circles - v0.0.1
+ *  jquery-slashes-and-circles - v0.0.2
  *  Animate random slashes and circles in a clipPath area of an SVG, avoiding certain areas.
  *  https://github.com/j0rdsta/jquery-slashes-and-circles
  *
@@ -73,13 +73,13 @@
 					};
 
 					// Add elements to avoid to positions array
-					var positions = $(this.settings.avoid).map(function(el){
+					var positions = $(this.settings.avoid).map(function(i, el){
 						var offset = $(el).offset();
 						return {
 								w: $(el).width(),
 								h: $(el).height(),
-								x: $(offset).left,
-								y: $(offset).top
+								x: offset.left,
+								y: offset.top
 						};
 					});
 
