@@ -88,6 +88,11 @@
       }
       // only gets here if there haven't been any collisions
       return true;
+    }, calculateAngledCoords: function (coords, yAdditional) {
+      return {
+        x: coords.x - (yAdditional * 0.663), // ~66.3% height to width ratio = 663/1000
+        y: coords.y + yAdditional
+      };
     }, randomizePositions: function (animatePositions) {
       var numberLimit;
       var limitElements;
@@ -148,11 +153,13 @@
 
         positions.push(coords);
 
+        var from = self.calculateAngledCoords(coords, 1000);
+
         // Animation time!
         // properties to tween from
         tweenFrom = {
-          x: (coords.x - 663), // ~57.9% height to width ratio = 663/1145
-          y: (coords.y + 1000),
+          x: from.x,
+          y: from.y,
           opacity: 0,
           visibility: "visible"
         };
