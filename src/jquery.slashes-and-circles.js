@@ -34,8 +34,9 @@
       $(window).on("resize", function () {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
-          // need to recalculate avoidCoords since the screen size has changed
+          // need to recalculate avoidCoords and svgDimensions since the screen size has changed
           self.avoidCoords = self.addAvoidCoords();
+          self.svgDimensions = self.calculateSvgDimensions();
           self.randomizePositions(false);
         }, 250);
       });
@@ -47,6 +48,7 @@
       }
 
       this.avoidCoords = this.addAvoidCoords();
+      this.svgDimensions = this.calculateSvgDimensions();
 
       this.randomizePositions(true);
 
@@ -66,6 +68,11 @@
           y: offset.top
         };
       });
+    }, calculateSvgDimensions: function () {
+      return {
+        w: this.element.getBBox().width,
+        h: this.element.getBBox().height
+      };
     }, randomizePositions: function (animatePositions) {
       var numberLimit;
       var limitElements;
@@ -77,10 +84,7 @@
       self = this;
 
       // Get width and height of SVG
-      svg = {
-        w: this.element.getBBox().width,
-        h: this.element.getBBox().height
-      };
+      svg = jQuery.extend(true, {}, this.svgDimensions);
 
       // Add elements to avoid to positions array
       positions = jQuery.extend(true, {}, this.avoidCoords);
