@@ -30,27 +30,24 @@
       });
     }, initResizeReflow: function () {
       var resizeTimer;
+      var self = this;
       $(window).on("resize", function () {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
-          // Run code here, resizing has "stopped"
+          // need to recalculate avoidCoords since the screen size has changed
+          self.avoidCoords = self.addAvoidCoords();
           self.randomizePositions(false);
         }, 250);
       });
     }, init: function () {
-
       // check if TweenLite (a dependency) is defined
       if (typeof TweenLite !== "function") {
         console.error("TweenLite is not initialized. Quitting...");
         return;
       }
 
-      // Place initialization logic here
-      // You already have access to the DOM element and
-      // the options via the instance, e.g. this.element
-      // and this.settings
-      // you can add more functions like the one below and
-      // call them like the example below
+      this.avoidCoords = this.addAvoidCoords();
+
       this.randomizePositions(true);
 
       // Randomize elements with /
@@ -86,7 +83,7 @@
       };
 
       // Add elements to avoid to positions array
-      positions = this.addAvoidCoords();
+      positions = jQuery.extend(true, {}, this.avoidCoords);
 
       // 0 -> 21 elements (reach 21 by medium-up size)
       percentageMedium = ($(window).width() / 640);
