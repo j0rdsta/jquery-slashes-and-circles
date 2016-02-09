@@ -1,4 +1,4 @@
-;(function ( $, window, document, undefined ) {
+;(function ($, window, document, undefined) {
 
   "use strict";
 
@@ -11,9 +11,9 @@
     };
 
   // The actual plugin constructor
-  function Plugin ( element, options ) {
+  function Plugin(element, options) {
     this.element = element;
-    this.settings = $.extend( {}, defaults, options );
+    this.settings = $.extend({}, defaults, options);
     this._defaults = defaults;
     this._name = pluginName;
     this.init();
@@ -33,23 +33,23 @@
       self = this;
 
       // Randomize elements with /
-      $(document).keypress(function(e) {
-        if(e.which === 47) {
+      $(document).keypress(function (e) {
+        if (e.which === 47) {
           self.randomizePositions(true);
         }
       });
 
       // Finished resizing? Randomize elements
       var resizeTimer;
-      $(window).on("resize", function() {
+      $(window).on("resize", function () {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
+        resizeTimer = setTimeout(function () {
           // Run code here, resizing has "stopped"
           self.randomizePositions(false);
         }, 250);
       });
     },
-    randomizePositions: function(animatePositions) {
+    randomizePositions: function (animatePositions) {
       // check if TweenLite (a dependency) is defined
       if (typeof TweenLite !== "function") {
         console.error("TweenLite is not initialized. Quitting...");
@@ -65,7 +65,7 @@
       };
 
       // Add elements to avoid to positions array
-      var positions = $(this.settings.avoid).map(function(i, el){
+      var positions = $(this.settings.avoid).map(function (i, el) {
         var offset = $(el).offset();
         return {
           w: $(el).width(),
@@ -80,7 +80,7 @@
         limitElements = (percentageMedium <= 1), // if true, don't show as many slashes/circles
         numberLimit = Math.floor(percentageMedium * this.settings.elements.length) - 8;
 
-      this.settings.elements.css({ visibility: "hidden" }).each(function(i) {
+      this.settings.elements.css({visibility: "hidden"}).each(function (i) {
         if (limitElements && numberLimit === 0) {
           // console.log("limited");
           return;
@@ -95,8 +95,7 @@
           maxTries = 50;
 
         // while we haven't found a spot that has no collisions, and max tries aren't exceeded
-        while (!success && maxTries >= 0)
-        {
+        while (!success && maxTries >= 0) {
           // randomize coordinates
           coords.x = parseInt(Math.random() * (svg.w - coords.w));
           coords.y = parseInt(Math.random() * (svg.h - coords.h));
@@ -109,7 +108,7 @@
               (coords.x + coords.w) >= positions[j].x &&
               coords.y <= (positions[j].y + positions[j].h) &&
               (coords.y + coords.h) >= positions[j].y
-            ){
+            ) {
               // we haven't succeeded, try again
               success = false;
             }
@@ -119,7 +118,7 @@
 
         // if we've reached the maximum amount of tries, hide and quit
         if (maxTries <= 0) {
-          $(this).css({ opacity: 0 });
+          $(this).css({opacity: 0});
           // console.log("max tries exceeded", $(this));
           return;
         }
@@ -160,12 +159,12 @@
 
   // A really lightweight plugin wrapper around the constructor,
   // preventing against multiple instantiations
-  $.fn[ pluginName ] = function ( options ) {
-    return this.each(function() {
-      if ( !$.data( this, "plugin_" + pluginName ) ) {
-        $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+  $.fn[pluginName] = function (options) {
+    return this.each(function () {
+      if (!$.data(this, "plugin_" + pluginName)) {
+        $.data(this, "plugin_" + pluginName, new Plugin(this, options));
       }
     });
   };
 
-})( jQuery, window, document );
+})(jQuery, window, document);
