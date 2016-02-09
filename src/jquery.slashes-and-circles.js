@@ -95,18 +95,20 @@
       numberLimit = Math.floor(percentageMedium * this.settings.elements.length) - 8;
 
       this.settings.elements.css({visibility: "hidden"}).each(function (i) {
+        var coords;
+        var gap;
         var tweenTo;
         var tweenFrom;
-        var coords;
 
         if (limitElements && numberLimit === 0) {
           // console.log("limited");
           return;
         }
 
+        gap = 10;
         coords = {
-          w: $(this).data("width"),
-          h: $(this).data("height")
+          w: $(this).data("width") + gap,
+          h: $(this).data("height") + gap
         };
 
         var success = false;
