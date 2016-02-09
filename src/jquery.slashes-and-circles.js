@@ -60,8 +60,8 @@
 
 					// Get width and height of SVG
 					var svg = {
-						w: $(this.element).width(),
-						h: $(this.element).height()
+						w: this.element.getBBox().width,
+						h: this.element.getBBox().height
 					};
 
 					// Add elements to avoid to positions array
