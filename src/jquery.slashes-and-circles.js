@@ -92,14 +92,14 @@
 						};
 
 						var success = false,
-								maxTries = 50;
+							maxTries = 50;
 
 						// while we haven't found a spot that has no collisions, and max tries aren't exceeded
 						while (!success && maxTries >= 0)
 						{
 							// randomize coordinates
-							coords.x = parseInt(Math.random() * (svg.w-coords.w));
-							coords.y = parseInt(Math.random() * (svg.h-coords.h));
+							coords.x = parseInt(Math.random() * (svg.w - coords.w));
+							coords.y = parseInt(Math.random() * (svg.h - coords.h));
 							success = true;
 							// make sure we haven't collided with anything previously placed
 							for (var j = 0; j < positions.length; j++) {
