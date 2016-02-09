@@ -73,6 +73,21 @@
         w: this.element.getBBox().width,
         h: this.element.getBBox().height
       };
+    }, checkForCollisions: function (positions, coords) {
+      for (var j = 0; j < positions.length; j++) {
+        // if there's a collision
+        if (
+          coords.x <= (positions[j].x + positions[j].w) &&
+          (coords.x + coords.w) >= positions[j].x &&
+          coords.y <= (positions[j].y + positions[j].h) &&
+          (coords.y + coords.h) >= positions[j].y
+        ) {
+          // we haven't succeeded, try again
+          return false;
+        }
+      }
+      // only gets here if there haven't been any collisions
+      return true;
     }, randomizePositions: function (animatePositions) {
       var numberLimit;
       var limitElements;
@@ -119,20 +134,8 @@
           // randomize coordinates
           coords.x = parseInt(Math.random() * (svg.w - coords.w));
           coords.y = parseInt(Math.random() * (svg.h - coords.h));
-          success = true;
           // make sure we haven't collided with anything previously placed
-          for (var j = 0; j < positions.length; j++) {
-            // if there's a collision
-            if (
-              coords.x <= (positions[j].x + positions[j].w) &&
-              (coords.x + coords.w) >= positions[j].x &&
-              coords.y <= (positions[j].y + positions[j].h) &&
-              (coords.y + coords.h) >= positions[j].y
-            ) {
-              // we haven't succeeded, try again
-              success = false;
-            }
-          }
+          success = self.checkForCollisions(positions, coords);
           maxTries--;
         }
 
