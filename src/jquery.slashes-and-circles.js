@@ -3,12 +3,12 @@
   "use strict";
 
   // Create the defaults once
-  var pluginName = "slashesAndCircles",
-    defaults = {
-      elements: $(".slashes, .circles"),
-      avoid: [],
-      allowAnimation: true
-    };
+  var pluginName = "slashesAndCircles";
+  var defaults = {
+    elements: $(".slashes, .circles"),
+    avoid: [],
+    allowAnimation: true
+  };
 
   // The actual plugin constructor
   function Plugin(element, options) {
@@ -21,25 +21,14 @@
 
   // Avoid Plugin.prototype conflicts
   $.extend(Plugin.prototype, {
-    init: function () {
-      // Place initialization logic here
-      // You already have access to the DOM element and
-      // the options via the instance, e.g. this.element
-      // and this.settings
-      // you can add more functions like the one below and
-      // call them like the example below
-      this.randomizePositions(true);
-
-      self = this;
-
-      // Randomize elements with /
+    initSlashKeypress: function (){
+      var self = this;
       $(document).keypress(function (e) {
         if (e.which === 47) {
           self.randomizePositions(true);
         }
       });
-
-      // Finished resizing? Randomize elements
+    }, initResizeReflow: function () {
       var resizeTimer;
       $(window).on("resize", function () {
         clearTimeout(resizeTimer);
@@ -48,24 +37,30 @@
           self.randomizePositions(false);
         }, 250);
       });
-    },
-    randomizePositions: function (animatePositions) {
+    }, init: function () {
+
       // check if TweenLite (a dependency) is defined
       if (typeof TweenLite !== "function") {
         console.error("TweenLite is not initialized. Quitting...");
         return;
       }
 
-      self = this;
+      // Place initialization logic here
+      // You already have access to the DOM element and
+      // the options via the instance, e.g. this.element
+      // and this.settings
+      // you can add more functions like the one below and
+      // call them like the example below
+      this.randomizePositions(true);
 
-      // Get width and height of SVG
-      var svg = {
-        w: this.element.getBBox().width,
-        h: this.element.getBBox().height
-      };
+      // Randomize elements with /
+      this.initSlashKeypress();
 
-      // Add elements to avoid to positions array
-      var positions = $(this.settings.avoid).map(function (i, el) {
+      // Finished resizing? Randomize elements
+      this.initResizeReflow();
+    },
+    addAvoidCoords: function (){
+      return $(this.settings.avoid).map(function (i, el) {
         var offset = $(el).offset();
         return {
           w: $(el).width(),
@@ -74,25 +69,47 @@
           y: offset.top
         };
       });
+    }, randomizePositions: function (animatePositions) {
+      var numberLimit;
+      var limitElements;
+      var percentageMedium;
+      var positions;
+      var svg;
+      var self;
+
+      self = this;
+
+      // Get width and height of SVG
+      svg = {
+        w: this.element.getBBox().width,
+        h: this.element.getBBox().height
+      };
+
+      // Add elements to avoid to positions array
+      positions = this.addAvoidCoords();
 
       // 0 -> 21 elements (reach 21 by medium-up size)
-      var percentageMedium = ($(window).width() / 640),
-        limitElements = (percentageMedium <= 1), // if true, don't show as many slashes/circles
-        numberLimit = Math.floor(percentageMedium * this.settings.elements.length) - 8;
+      percentageMedium = ($(window).width() / 640);
+      limitElements = (percentageMedium <= 1);
+      numberLimit = Math.floor(percentageMedium * this.settings.elements.length) - 8;
 
       this.settings.elements.css({visibility: "hidden"}).each(function (i) {
+        var tweenTo;
+        var tweenFrom;
+        var coords;
+
         if (limitElements && numberLimit === 0) {
           // console.log("limited");
           return;
         }
 
-        var coords = {
+        coords = {
           w: $(this).data("width"),
           h: $(this).data("height")
         };
 
-        var success = false,
-          maxTries = 50;
+        var success = false;
+        var maxTries = 50;
 
         // while we haven't found a spot that has no collisions, and max tries aren't exceeded
         while (!success && maxTries >= 0) {
@@ -127,7 +144,7 @@
 
         // Animation time!
         // properties to tween from
-        var tweenFrom = {
+        tweenFrom = {
           x: (coords.x - 663), // ~57.9% height to width ratio = 663/1145
           y: (coords.y + 1000),
           opacity: 0,
@@ -135,13 +152,12 @@
         };
 
         // properties to tween to
-        var tweenTo = {
+        tweenTo = {
           x: coords.x,
           y: coords.y,
           opacity: 1,
           visibility: "visible"
         };
-
 
         // if we want things to animate
         if (animatePositions === true && self.settings.allowAnimation === true) {
