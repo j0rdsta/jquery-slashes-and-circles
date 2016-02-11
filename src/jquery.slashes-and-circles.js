@@ -31,7 +31,7 @@
       this.avoidCoords = this.addAvoidCoords();
       this.svgDimensions = this.calculateSvgDimensions();
 
-      this.randomizePositions(true);
+      this.randomizePositions(true, false);
 
       // Randomize elements with /
       this.initSlashKeypress();
@@ -56,7 +56,7 @@
           // need to recalculate avoidCoords and svgDimensions since the screen size has changed
           self.avoidCoords = self.addAvoidCoords();
           self.svgDimensions = self.calculateSvgDimensions();
-          self.randomizePositions(false);
+          self.randomizePositions(false, true);
         }, 250);
       });
     },
@@ -129,13 +129,13 @@
 
       // if we've reached the maximum amount of tries, hide and quit
       if (maxTries <= 0) {
-        $(this).css({opacity: 0});
+        $(this).css({visibility: "hidden"});
         //console.log("max tries exceeded", $(this));
         return;
       }
       return coords;
     },
-    randomizePositions: function (animatePositions) {
+    randomizePositions: function (animatePositions, reflow) {
       var numberLimit;
       var limitElements;
       var percentageMedium;
@@ -156,7 +156,7 @@
       limitElements = (percentageMedium <= 1);
       numberLimit = Math.floor(percentageMedium * this.settings.elements.length) - 8;
 
-      this.settings.elements.css({visibility: "hidden"}).each(function (i, elem) {
+      this.settings.elements.each(function (i, elem) {
         var coords;
         var tweenTo;
         var tweenFrom;
@@ -171,6 +171,7 @@
 
         if (!coords) {
           //console.log("generateRandomCoords limited, returning...");
+          $(elem).css({visibility: "hidden"});
           return;
         }
 
@@ -193,16 +194,17 @@
           x: coords.x,
           y: coords.y,
           opacity: 1,
-          visibility: "visible"
+          visibility: "visible",
+          ease: Expo.easeOut,
+          delay: i * 0.05
         };
 
-        // if we want things to animate
-        if (animatePositions === true && self.settings.allowAnimation === true) {
-          tweenTo.ease = Expo.easeOut;
-          tweenTo.delay = i * 0.05;
-          TweenLite.fromTo($(this), 1, tweenFrom, tweenTo);
-        } else {
+        if (self.settings.allowAnimation === false) {
           TweenLite.set($(this), tweenTo);
+        } else if (reflow === true) {
+          TweenLite.to($(this), 1, tweenTo);
+        } else if (animatePositions === true) {
+          TweenLite.fromTo($(this), 1, tweenFrom, tweenTo);
         }
 
         numberLimit--;
@@ -267,12 +269,16 @@
           // properties to tween from
           var tweenTo = {
             x: animateTo.x,
-            y: animateTo.y
+            y: animateTo.y,
+            ease: Expo.easeOut
+            //delay: i * 0.05
           };
 
-          tweenTo.ease = Expo.easeOut;
-          //tweenTo.delay = i * 0.05;
-          TweenLite.to($(elem), 1, tweenTo);
+          if (self.settings.allowAnimation === false) {
+            TweenLite.set($(this), tweenTo);
+          } else {
+            TweenLite.to($(elem), 1, tweenTo);
+          }
 
           $(elem).data("x", animateTo.x);
           $(elem).data("y", animateTo.y);
