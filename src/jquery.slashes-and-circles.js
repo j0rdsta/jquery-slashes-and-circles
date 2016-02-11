@@ -101,7 +101,7 @@
         y: Math.floor(coords.y + yAdditional)
       };
     },
-    generateRandomCoords: function (self, elem, svg, positions) {
+    generateRandomCoords: function (self, elem, svg, positions, randomCoordinates) {
       var gap = 10;
       var coords;
 
@@ -116,9 +116,22 @@
       // while we haven't found a spot that has no collisions, and max tries aren't exceeded
       while (!success && maxTries >= 0) {
 
-        // randomize coordinates
-        coords.x = parseInt(Math.random() * (svg.w - coords.w));
-        coords.y = parseInt(Math.random() * (svg.h - coords.h));
+        if (randomCoordinates === true) {
+          coords.x = parseInt(Math.random() * (svg.w - coords.w));
+          coords.y = parseInt(Math.random() * (svg.h - coords.h));
+        } else {
+          // this must be for the animate along line segment
+          var animationAmount = Math.floor(Math.random() * ((svg.h - coords.h) - -500 + 1) + -500);
+          var existingCoords = {
+            x: $(elem).data("x"),
+            y: $(elem).data("y")
+          };
+          //console.log("animationAmount", animationAmount);
+          //console.log("coords before calculateAngledCoords", existingCoords);
+          coords = self.calculateAngledCoords(existingCoords, animationAmount);
+          //console.log("coords after calculateAngledCoords", coords);
+        }
+
         // make sure we haven't collided with anything previously placed
         success = self.checkForCollisions(positions, coords);
         //console.log("success", success);
@@ -166,7 +179,7 @@
           return;
         }
 
-        coords = self.generateRandomCoords(self, elem, svg, positions);
+        coords = self.generateRandomCoords(self, elem, svg, positions, true);
         positions.push(coords);
 
         if (!coords) {
@@ -229,60 +242,26 @@
         };
         //console.log("old coords", coords);
 
-        var success = false;
-        var maxTries = 50;
+        coords = self.generateRandomCoords(self, elem, svg, positions, false);
+        positions.push(coords);
 
-        // while we haven't found a spot that hasn't gone outside of bounds, and max tries aren't exceeded
-        while (!success && maxTries > 0) {
-          //var animationAmount = Math.floor((Math.random() * (svg.h - coords.h)) + 1 );
-          var animationAmount = Math.floor(Math.random() * ((svg.h - coords.h) - -500 + 1) + -500);
-          var animateTo = self.calculateAngledCoords(coords, animationAmount);
+        //console.log("new coords", coords);
 
-          //var animateTo = {
-          //  x: coords.x + 30,
-          //  y: coords.y
-          //};
+        var tweenTo = {
+          x: coords.x,
+          y: coords.y,
+          ease: Expo.easeOut
+          //delay: i * 0.05
+        };
 
-          console.log("animateTo.y > 0", (animateTo.y >= 0), animateTo.y);
-          console.log("animateTo.x > 0", (animateTo.x >= 0), animateTo.x);
-
-          if (
-            (animateTo.y > 0) &&
-            (animateTo.x > 0) &&
-            (animateTo.y <= (svg.h - coords.h)) &&
-            (animateTo.x <= (svg.w - coords.w))
-          ) {
-            success = true;
-            console.log("success!");
-            //console.log("new coords:", animateTo);
-            //console.log("svg.h:", svg.h);
-            //console.log("svg.w:", svg.w);
-          }
-          maxTries--;
-        }
-
-        if (maxTries <= 0) {
-          $(elem).css({opacity: 0});
-          console.log("max tries exceeded", $(elem));
+        if (self.settings.allowAnimation === false) {
+          TweenLite.set($(this), tweenTo);
         } else {
-          // Animation time!
-          // properties to tween from
-          var tweenTo = {
-            x: animateTo.x,
-            y: animateTo.y,
-            ease: Expo.easeOut
-            //delay: i * 0.05
-          };
-
-          if (self.settings.allowAnimation === false) {
-            TweenLite.set($(this), tweenTo);
-          } else {
-            TweenLite.to($(elem), 1, tweenTo);
-          }
-
-          $(elem).data("x", animateTo.x);
-          $(elem).data("y", animateTo.y);
+          TweenLite.to($(elem), 1, tweenTo);
         }
+
+        $(elem).data("x", coords.x);
+        $(elem).data("y", coords.y);
 
       });
     }
