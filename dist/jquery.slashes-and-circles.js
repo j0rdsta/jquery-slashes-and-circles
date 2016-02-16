@@ -1,5 +1,5 @@
 /*
- *  jquery-slashes-and-circles - v0.0.2
+ *  jquery-slashes-and-circles - v0.1.0
  *  Animate random slashes and circles in a clipPath area of an SVG, avoiding certain areas.
  *  https://github.com/j0rdsta/jquery-slashes-and-circles
  *
