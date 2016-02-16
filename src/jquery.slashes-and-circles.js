@@ -77,16 +77,26 @@
         h: this.element.getBBox().height
       };
     },
-    checkForCollisions: function (positions, coords) {
+    checkForCollisions: function (positions, coords, svg) {
       for (var j = 0; j < positions.length; j++) {
-        // if there's a collision
-        if (
-          coords.x && coords.y && positions[j] && ("x" in positions[j]) &&
-          ("w" in positions[j]) && ("y" in positions[j]) && ("h" in positions[j]) &&
-          coords.x <= (positions[j].x + positions[j].w) &&
+        var collisionDetected = coords.x <= (positions[j].x + positions[j].w) &&
           (coords.x + coords.w) >= positions[j].x &&
           coords.y <= (positions[j].y + positions[j].h) &&
-          (coords.y + coords.h) >= positions[j].y
+          (coords.y + coords.h) >= positions[j].y;
+        var withinSvgWidth = coords.x > 0 && coords.x <= (svg.w - coords.w);
+        var withinSvgHeight = coords.y > 0 && coords.y <= (svg.h - coords.h);
+
+        //console.log("positions", positions[j]);
+        //console.log("coords", coords);
+        //console.log("(svg.h - coords.h)", (svg.h - coords.h));
+        //console.log("withinSvgWidth", withinSvgWidth);
+        //console.log("withinSvgHeight", withinSvgHeight);
+
+        // if there's a collision
+        if (
+          collisionDetected ||
+          !withinSvgWidth ||
+          !withinSvgHeight
         ) {
           // we haven't succeeded, try again
           return false;
@@ -97,8 +107,8 @@
     },
     calculateAngledCoords: function (coords, yAdditional) {
       return {
-        x: Math.floor(coords.x - (yAdditional * 0.60)), // ~60 deg height to width ratio
-        y: Math.floor(coords.y + yAdditional)
+        x: coords.x - (yAdditional * 0.60), // ~60 deg height to width ratio
+        y: coords.y + yAdditional
       };
     },
     generateRandomCoords: function (self, elem, svg, positions, randomCoordinates) {
@@ -111,7 +121,7 @@
       };
 
       var success = false;
-      var maxTries = 50;
+      var maxTries = 500;
 
       // while we haven't found a spot that has no collisions, and max tries aren't exceeded
       while (!success && maxTries >= 0) {
@@ -121,19 +131,20 @@
           coords.y = parseInt(Math.random() * (svg.h - coords.h));
         } else {
           // this must be for the animate along line segment
-          var animationAmount = Math.floor(Math.random() * ((svg.h - coords.h) - -500 + 1) + -500);
+          var animationAmount =  Math.floor(Math.random() * 200) + -100;
           var existingCoords = {
             x: $(elem).data("x"),
             y: $(elem).data("y")
           };
           //console.log("animationAmount", animationAmount);
           //console.log("coords before calculateAngledCoords", existingCoords);
-          coords = self.calculateAngledCoords(existingCoords, animationAmount);
+          coords = $.extend({}, coords, self.calculateAngledCoords(existingCoords, animationAmount));
           //console.log("coords after calculateAngledCoords", coords);
         }
 
+
         // make sure we haven't collided with anything previously placed
-        success = self.checkForCollisions(positions, coords);
+        success = self.checkForCollisions(positions, coords, svg);
         //console.log("success", success);
         //console.log("coords.x", coords.x);
         //console.log("coords.y", coords.y);
@@ -245,13 +256,19 @@
         coords = self.generateRandomCoords(self, elem, svg, positions, false);
         positions.push(coords);
 
+        if (!coords || isNaN(coords.x) || isNaN(coords.y)) {
+          //console.log("generateRandomCoords limited, returning...");
+          //$(elem).css({visibility: "hidden"});
+          return false;
+        }
+
         //console.log("new coords", coords);
 
         var tweenTo = {
           x: coords.x,
           y: coords.y,
-          ease: Expo.easeOut
-          //delay: i * 0.05
+          ease: Expo.easeOut,
+          delay: i * 0.05
         };
 
         if (self.settings.allowAnimation === false) {
