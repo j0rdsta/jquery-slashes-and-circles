@@ -12,5 +12,18 @@
 		"plugin",
 		"jquery-plugin"
 	],
-	"license": "MIT"
+	"license": "MIT",
+  "ignore": [
+    "demo/*",
+    "src/*",
+    "test/*",
+    ".editorconfig",
+    ".gitignore",
+    ".jshintrc",
+    ".travis.yml",
+    "CONTRIBUTING.md",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json"
+  ]
 }
