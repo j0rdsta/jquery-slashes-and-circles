@@ -42,8 +42,12 @@
     initTimerAnimation: function () {
       var self = this;
 
-      window.onblur = function() {window.blurred = true;};
-      window.onfocus = function() {window.blurred = false;};
+      window.onblur = function () {
+        window.blurred = true;
+      };
+      window.onfocus = function () {
+        window.blurred = false;
+      };
 
       var maxBeforeRefresh = 3;
       var timeUntilRefresh = maxBeforeRefresh;
@@ -51,7 +55,7 @@
       animationTimer();
       function animationTimer() {
         setTimeout(function () {
-          if ( !window.blurred ) {
+          if (!window.blurred) {
             if (timeUntilRefresh <= 0) {
               self.randomizePositions(true, false);
               timeUntilRefresh = maxBeforeRefresh;
@@ -98,10 +102,7 @@
     checkForCollisions: function (positions, coords, svg) {
       for (var j = 0; j < positions.length; j++) {
         if (
-          !("x" in positions[j]) ||
-          !("y" in positions[j]) ||
-          !("w" in positions[j]) ||
-          !("h" in positions[j])
+          !("x" in positions[j]) || !("y" in positions[j]) || !("w" in positions[j]) || !("h" in positions[j])
         ) {
           return false;
         }
@@ -121,9 +122,7 @@
 
         // if there's a collision
         if (
-          collisionDetected ||
-          !withinSvgWidth ||
-          !withinSvgHeight
+          collisionDetected || !withinSvgWidth || !withinSvgHeight
         ) {
           // we haven't succeeded, try again
           return false;
@@ -158,7 +157,7 @@
           coords.y = parseInt(Math.random() * (svg.h - coords.h));
         } else {
           // this must be for the animate along line segment
-          var animationAmount =  Math.floor(Math.random() * 200) + -100;
+          var animationAmount = Math.floor(Math.random() * 200) + -100;
           var existingCoords = {
             x: $(elem).data("x"),
             y: $(elem).data("y")
@@ -170,10 +169,7 @@
         }
 
         if (
-          !("x" in coords) ||
-          !("y" in coords) ||
-          !("w" in coords) ||
-          !("h" in coords)
+          !("x" in coords) || !("y" in coords) || !("w" in coords) || !("h" in coords)
         ) {
           console.error("not all coords defined");
           return false;
