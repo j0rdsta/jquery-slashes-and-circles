@@ -1,6 +1,6 @@
 {
   "name": "jquery-slashes-and-circles",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Animate random slashes and circles in a clipPath area of an SVG, avoiding certain areas.",
   "keywords": [
     "jquery-plugin",
@@ -45,7 +45,7 @@
     "karma-chrome-launcher": "^0.2.2",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-qunit": "^0.1.9",
-    "phantomjs": "^1.9.18",
+    "phantomjs-prebuilt": "^2.1.4",
     "qunitjs": "^1.19.0"
   },
   "scripts": {

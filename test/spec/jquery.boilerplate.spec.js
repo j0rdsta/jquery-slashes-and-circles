@@ -7,7 +7,7 @@
 	QUnit.module("jQuery slashesAndCircles", {
 		beforeEach: function () {
 			// fixture is the element where your jQuery plugin will act
-			$fixture = $("<svg/>");
+			$fixture = $("<svg><?xml version=\"1.0\" encoding=\"UTF-8\"?></svg>");
 
 			$testCanvas.append($fixture);
 		},

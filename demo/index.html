@@ -1,84 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>jQuery slashesAndCircles</title>
-	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-	<script src="../node_modules/gsap/src/uncompressed/TweenLite.js"></script>
-    <script src="../node_modules/gsap/src/uncompressed/easing/EasePack.js"></script>
-    <script src="../node_modules/gsap/src/uncompressed/plugins/CSSPlugin.js"></script>
-	<script src="../src/jquery.slashes-and-circles.js"></script>
-	<!-- <script src="../dist/jquery.slashes-and-circles.min.js"></script> -->
+    <title>jQuery slashesAndCircles</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/gsap/src/uncompressed/TweenLite.js"></script>
+  <script src="../node_modules/gsap/src/uncompressed/easing/EasePack.js"></script>
+  <script src="../node_modules/gsap/src/uncompressed/plugins/CSSPlugin.js"></script>
+
+    <script src="../src/jquery.slashes-and-circles.js"></script>
+    <!-- <script src="../dist/jquery.slashes-and-circles.min.js"></script> -->
+
+  <style>
+    h1 {
+      position: absolute;
+      left: 0;
+      top: 0
+    }
+  </style>
 </head>
 <body>
-	<svg width="100%">
-		<rect x="0" y="0" width="100%" height="100%" clip-path="url(#theSVGPath)" fill="url(#gradient)" />
-		<defs>
-			<linearGradient id="gradient" x1="384" y1="1284" x2="2051" y2="-384" gradientUnits="userSpaceOnUse">
-				<stop offset="0.1" stop-color="#ff5722" />
-				<stop offset="0.18" stop-color="#f65729" />
-				<stop offset="0.32" stop-color="#dc563d" />
-				<stop offset="0.5" stop-color="#b3555c" />
-				<stop offset="0.71" stop-color="#7a5388" />
-				<stop offset="0.9" stop-color="#3f51b5" />
-			</linearGradient>
-			<clipPath id="theSVGPath">
-				<!-- Top Gradient -->
-				<rect x="0" y="0" stroke="#000000" stroke-miterlimit="10" width="100%" height="4"/>
+  <h1>Slashes and Circles will avoid me on purpose :(</h1>
+    <svg width="100%" height="500">
+        <rect x="0" y="0" width="100%" height="100%" clip-path="url(#theSVGPath)" fill="url(#gradient)" />
+        <defs>
+            <linearGradient id="gradient" x1="384" y1="1284" x2="2051" y2="-384" gradientUnits="userSpaceOnUse">
+                <stop offset="0.1" stop-color="#ff5722" />
+                <stop offset="0.18" stop-color="#f65729" />
+                <stop offset="0.32" stop-color="#dc563d" />
+                <stop offset="0.5" stop-color="#b3555c" />
+                <stop offset="0.71" stop-color="#7a5388" />
+                <stop offset="0.9" stop-color="#3f51b5" />
+            </linearGradient>
+            <clipPath id="theSVGPath">
+                <!-- Top Gradient -->
+                <rect x="0" y="0" stroke="#000000" stroke-miterlimit="10" width="100%" height="4"/>
 
-				<!-- Paths -->
+                <!-- Paths -->
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash1"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash1"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle1"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle1"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash2"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash2"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle2"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle2"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash3"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash3"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle3"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle3"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash4"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash4"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle4"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle4"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash5"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash5"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle5"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle5"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash6"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash6"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle6"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle6"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash7"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash7"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle7"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle7"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash8"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash8"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle8"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle8"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash9"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash9"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle9"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle9"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash10"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash10"/>
 
-				<path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle10"/>
+                <path d="M35 11c5 12-3 26-17 26C5 37-4 23 2 11 4 5 10 0 18 0S33 5 35 11ZM18 5c-7 0-11 4-13 8C2 22 8 32 18 32s16-10 13-19C29 8 25 5 18 5Z" transform="translate(-250,240)" fill="#396c93" data-width="37" data-height="37" class="circles" id="circle10"/>
 
-				<path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash11"/>
+                <path d="M1 144a2 2 0 0 1-1-3L80 1a2 2 0 0 1 3-1 2 2 0 0 1 1 3L4 143A2 2 0 0 1 1 144Z" transform="translate(-250,240)" fill="#396c93" data-width="85" data-height="145" class="slashes" id="slash11"/>
 
-			</clipPath>
-		</defs>
-	</svg>
-	<script>
-		$(function() {
-			$("svg").slashesAndCircles({
-				elements: $('.slashes, .circles'),
-				avoid: []
-			});
-		});
-	</script>
+            </clipPath>
+        </defs>
+    </svg>
+    <script>
+        $(function() {
+            $("svg").slashesAndCircles({
+                elements: $('.slashes, .circles'),
+                avoid: [$('h1')]
+            });
+        });
+    </script>
 </body>
 </html>

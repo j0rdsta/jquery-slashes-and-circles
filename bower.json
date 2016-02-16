@@ -1,6 +1,6 @@
 {
 	"name": "jquery-slashes-and-circles",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"homepage": "https://github.com/j0rdsta/jquery-slashes-and-circles",
 	"authors": [
 		"Jordan Gardiner <hello@jordsta.com>"
@@ -12,5 +12,18 @@
 		"plugin",
 		"jquery-plugin"
 	],
-	"license": "MIT"
+	"license": "MIT",
+  "ignore": [
+    "demo/*",
+    "src/*",
+    "test/*",
+    ".editorconfig",
+    ".gitignore",
+    ".jshintrc",
+    ".travis.yml",
+    "CONTRIBUTING.md",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json"
+  ]
 }
