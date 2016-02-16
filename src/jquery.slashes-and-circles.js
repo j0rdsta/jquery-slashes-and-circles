@@ -97,6 +97,15 @@
     },
     checkForCollisions: function (positions, coords, svg) {
       for (var j = 0; j < positions.length; j++) {
+        if (
+          !("x" in positions[j]) ||
+          !("y" in positions[j]) ||
+          !("w" in positions[j]) ||
+          !("h" in positions[j])
+        ) {
+          return false;
+        }
+
         var collisionDetected = coords.x <= (positions[j].x + positions[j].w) &&
           (coords.x + coords.w) >= positions[j].x &&
           coords.y <= (positions[j].y + positions[j].h) &&
@@ -160,6 +169,15 @@
           //console.log("coords after calculateAngledCoords", coords);
         }
 
+        if (
+          !("x" in coords) ||
+          !("y" in coords) ||
+          !("w" in coords) ||
+          !("h" in coords)
+        ) {
+          console.error("not all coords defined");
+          return false;
+        }
 
         // make sure we haven't collided with anything previously placed
         success = self.checkForCollisions(positions, coords, svg);
@@ -173,7 +191,6 @@
       if (maxTries <= 0) {
         $(this).css({visibility: "hidden"});
         //console.log("max tries exceeded", $(this));
-        return;
       }
       return coords;
     },
