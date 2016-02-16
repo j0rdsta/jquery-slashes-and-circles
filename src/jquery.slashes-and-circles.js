@@ -33,19 +33,37 @@
 
       this.randomizePositions(true, false);
 
-      // Randomize elements with /
-      this.initSlashKeypress();
+      // Randomize elements on timer
+      this.initTimerAnimation();
 
       // Finished resizing? Randomize elements
       this.initResizeReflow();
     },
-    initSlashKeypress: function () {
+    initTimerAnimation: function () {
       var self = this;
-      $(document).keypress(function (e) {
-        if (e.which === 47) {
-          self.randomPositionAlongLine();
-        }
-      });
+
+      window.onblur = function() {window.blurred = true;};
+      window.onfocus = function() {window.blurred = false;};
+
+      var maxBeforeRefresh = 3;
+      var timeUntilRefresh = maxBeforeRefresh;
+
+      animationTimer();
+      function animationTimer() {
+        setTimeout(function () {
+          if ( !window.blurred ) {
+            if (timeUntilRefresh <= 0) {
+              self.randomizePositions(true, false);
+              timeUntilRefresh = maxBeforeRefresh;
+            } else {
+              self.randomPositionAlongLine();
+            }
+          }
+          animationTimer();
+          timeUntilRefresh--;
+          console.log(timeUntilRefresh);
+        }, 3000);
+      }
     },
     initResizeReflow: function () {
       var resizeTimer;
