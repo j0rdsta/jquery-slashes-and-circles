@@ -49,23 +49,13 @@
         window.blurred = false;
       };
 
-      var maxBeforeRefresh = 3;
-      var timeUntilRefresh = maxBeforeRefresh;
-
       animationTimer();
       function animationTimer() {
         setTimeout(function () {
           if (!window.blurred) {
-            if (timeUntilRefresh <= 0) {
-              self.randomizePositions(true, false);
-              timeUntilRefresh = maxBeforeRefresh;
-            } else {
-              self.randomPositionAlongLine();
-            }
+            self.randomPositionAlongLine();
           }
           animationTimer();
-          timeUntilRefresh--;
-          console.log(timeUntilRefresh);
         }, 3000);
       }
     },
