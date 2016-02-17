@@ -42,6 +42,10 @@
     initTimerAnimation: function () {
       var self = this;
 
+      if (self.settings.allowAnimation === false) {
+        return false;
+      }
+
       window.onblur = function () {
         window.blurred = true;
       };
@@ -245,6 +249,7 @@
         };
 
         if (self.settings.allowAnimation === false) {
+          tweenTo.delay = 0;
           TweenLite.set($(this), tweenTo);
         } else if (reflow === true) {
           TweenLite.to($(this), 1, tweenTo);
